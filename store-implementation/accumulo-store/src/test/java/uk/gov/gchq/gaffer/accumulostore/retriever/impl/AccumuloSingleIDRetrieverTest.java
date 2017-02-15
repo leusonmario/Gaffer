@@ -317,15 +317,9 @@ public class AccumuloSingleIDRetrieverTest {
             final Entity entity = new Entity(TestGroups.ENTITY);
             entity.setVertex("" + i);
 
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("" + i);
-            edge.setDestination("B");
-            edge.setDirected(false);
+            final Edge edge = new Edge(TestGroups.EDGE, "" + i, "B", false);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("" + i);
-            edge2.setDestination("C");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "" + i, "C", true);
 
             elements.add(edge);
             elements.add(edge2);

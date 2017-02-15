@@ -16,7 +16,6 @@
 package gaffer.bitmap.serialisation.utils;
 
 import uk.gov.gchq.gaffer.exception.SerialisationException;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;

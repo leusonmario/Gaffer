@@ -89,10 +89,7 @@ public class AggregatorIteratorTest {
 
     private void test(final AccumuloStore store) throws OperationException {
         // Given
-        final Edge expectedResult = new Edge(TestGroups.EDGE);
-        expectedResult.setSource("1");
-        expectedResult.setDestination("2");
-        expectedResult.setDirected(true);
+        final Edge expectedResult = new Edge(TestGroups.EDGE, "1", "2", true);
         expectedResult.putProperty(AccumuloPropertyNames.COUNT, 13);
         expectedResult.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
         expectedResult.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -100,10 +97,7 @@ public class AggregatorIteratorTest {
         expectedResult.putProperty(AccumuloPropertyNames.PROP_3, 1);
         expectedResult.putProperty(AccumuloPropertyNames.PROP_4, 1);
 
-        final Edge edge1 = new Edge(TestGroups.EDGE);
-        edge1.setSource("1");
-        edge1.setDestination("2");
-        edge1.setDirected(true);
+        final Edge edge1 = new Edge(TestGroups.EDGE, "1", "2", true);
         edge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
         edge1.putProperty(AccumuloPropertyNames.COUNT, 1);
         edge1.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -111,10 +105,7 @@ public class AggregatorIteratorTest {
         edge1.putProperty(AccumuloPropertyNames.PROP_3, 1);
         edge1.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-        final Edge edge2 = new Edge(TestGroups.EDGE);
-        edge2.setSource("1");
-        edge2.setDestination("2");
-        edge2.setDirected(true);
+        final Edge edge2 = new Edge(TestGroups.EDGE, "1", "2", true);
         edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
         edge2.putProperty(AccumuloPropertyNames.COUNT, 2);
         edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -122,10 +113,7 @@ public class AggregatorIteratorTest {
         edge2.putProperty(AccumuloPropertyNames.PROP_3, 0);
         edge2.putProperty(AccumuloPropertyNames.PROP_4, 1);
 
-        final Edge edge3 = new Edge(TestGroups.EDGE);
-        edge3.setSource("1");
-        edge3.setDestination("2");
-        edge3.setDirected(true);
+        final Edge edge3 = new Edge(TestGroups.EDGE, "1", "2", true);
         edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
         edge3.putProperty(AccumuloPropertyNames.COUNT, 10);
         edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);

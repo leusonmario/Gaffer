@@ -17,11 +17,20 @@
 package uk.gov.gchq.gaffer.data.element;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.gchq.gaffer.data.element.Edge.Builder;
+
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import static org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 /**
  * An <code>Edge</code> in an {@link uk.gov.gchq.gaffer.data.element.Element} containing a source, destination and a directed flag.
@@ -33,20 +42,13 @@ import org.slf4j.LoggerFactory;
  *
  * @see uk.gov.gchq.gaffer.data.element.Edge.Builder
  */
+@JsonDeserialize(builder = Builder.class)
 public class Edge extends Element {
     private static final Logger LOGGER = LoggerFactory.getLogger(Edge.class);
     private static final long serialVersionUID = -5596452468277807842L;
     private Object source;
     private Object destination;
     private boolean directed;
-
-    Edge() {
-        super();
-    }
-
-    public Edge(final String group) {
-        super(group);
-    }
 
     public Edge(final String group, final Object source, final Object destination, final boolean directed) {
         super(group);
@@ -56,32 +58,31 @@ public class Edge extends Element {
         standardise();
     }
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_OBJECT, property = "class")
+    private Edge(final Builder builder) {
+        super(builder.group);
+        this.source = builder.source;
+        this.destination = builder.destination;
+        this.directed = builder.directed;
+
+        if (null != builder.properties) {
+            builder.properties.forEach((k, v) -> putProperty(k, v));
+        }
+
+        standardise();
+    }
+
+    @JsonTypeInfo(use = Id.CLASS, include = As.WRAPPER_OBJECT)
     public Object getSource() {
         return source;
     }
 
-    public void setSource(final Object source) {
-        this.source = source;
-        standardise();
-    }
-
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_OBJECT, property = "class")
+    @JsonTypeInfo(use = Id.CLASS, include = As.WRAPPER_OBJECT)
     public Object getDestination() {
         return destination;
     }
 
-    public void setDestination(final Object destination) {
-        this.destination = destination;
-        standardise();
-    }
-
     public boolean isDirected() {
         return directed;
-    }
-
-    public void setDirected(final boolean directed) {
-        this.directed = directed;
     }
 
     @Override
@@ -103,13 +104,13 @@ public class Edge extends Element {
     public void putIdentifier(final IdentifierType identifierType, final Object propertyToBeSet) {
         switch (identifierType) {
             case SOURCE:
-                setSource(propertyToBeSet);
+                this.source = propertyToBeSet;
                 break;
             case DESTINATION:
-                setDestination(propertyToBeSet);
+                this.destination = propertyToBeSet;
                 break;
             case DIRECTED:
-                setDirected((boolean) propertyToBeSet);
+                this.directed = (boolean) propertyToBeSet;
                 break;
             default:
                 LOGGER.error("Unknown identifier type: " + identifierType + " detected.");
@@ -117,11 +118,22 @@ public class Edge extends Element {
     }
 
     private void standardise() {
-        if (null != destination && null != source) {
-            if (destination.toString().compareTo(source.toString()) > 0) {
-                final Object tmp = destination;
-                destination = source;
-                source = tmp;
+        if (!directed) {
+            if (null != destination && null != source) {
+                if ((source instanceof Comparable) && (destination instanceof Comparable)) {
+                    if (((Comparable) destination).compareTo((Comparable) source) < 0) {
+                        final Object tmp = destination;
+                        destination = source;
+                        source = tmp;
+                    } else {
+                        if (destination.toString()
+                                       .compareTo(source.toString()) < 0) {
+                            final Object tmp = destination;
+                            destination = source;
+                            source = tmp;
+                        }
+                    }
+                }
             }
         }
     }
@@ -179,45 +191,71 @@ public class Edge extends Element {
 
     @Override
     public String toString() {
-        return "Edge{"
-                + "source=" + source
-                + ", destination=" + destination
-                + ", directed=" + directed
-                + super.toString()
-                + "} ";
+        return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .append("source", source)
+                .append("destination", destination)
+                .append("directed", directed)
+                .appendSuper(super.toString())
+                .toString();
     }
 
-    public static class Builder {
-        private final Edge edge = new Edge();
+    @JsonPOJOBuilder(withPrefix = "")
+    public static final class Builder {
+
+        private Properties properties;
+        private String group;
+        private Object source;
+        private Object destination;
+        private boolean directed;
+
+        public Builder() {
+            // Empty
+        }
+
+        @JsonProperty("class")
+        public Builder clazz(final String clazz) {
+            // Required to consume "class" field added by JsonTypeInfo annotation
+            return this;
+        }
 
         public Builder group(final String group) {
-            edge.setGroup(group);
+            this.group = group;
             return this;
         }
 
+        @JsonTypeInfo(use = Id.CLASS, include = As.WRAPPER_OBJECT)
         public Builder source(final Object source) {
-            edge.setSource(source);
+            this.source = source;
             return this;
         }
 
-        public Builder dest(final Object dest) {
-            edge.setDestination(dest);
+        @JsonTypeInfo(use = Id.CLASS, include = As.WRAPPER_OBJECT)
+        public Builder destination(final Object destination) {
+            this.destination = destination;
             return this;
         }
 
         public Builder directed(final boolean directed) {
-            edge.setDirected(directed);
+            this.directed = directed;
             return this;
         }
 
         public Builder property(final String name, final Object value) {
-            edge.putProperty(name, value);
+            if (null == properties) {
+                this.properties = new Properties();
+            }
+            this.properties.put(name, value);
+            return this;
+        }
+
+        @JsonTypeInfo(use = Id.CLASS, include = As.WRAPPER_OBJECT)
+        public Builder properties(final Properties properties) {
+            this.properties = properties;
             return this;
         }
 
         public Edge build() {
-            edge.standardise();
-            return edge;
+            return new Edge(this);
         }
     }
 }

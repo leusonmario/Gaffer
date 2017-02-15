@@ -395,10 +395,11 @@ public class SimpleExamplesService implements IExamplesService {
         final String group = getAnEdgeGroup();
         final SchemaElementDefinition edgeDef = getSchema().getEdge(group);
 
-        final Edge edge = new Edge(group);
-        edge.setSource(getExampleVertex(edgeDef.getIdentifierClass(IdentifierType.SOURCE), uniqueId1));
-        edge.setDestination(getExampleVertex(edgeDef.getIdentifierClass(IdentifierType.DESTINATION), uniqueId2));
-        edge.setDirected(isAnEdgeDirected());
+        final Edge edge = new Edge.Builder().group(group)
+                                            .source(getExampleVertex(edgeDef.getIdentifierClass(IdentifierType.SOURCE), uniqueId1))
+                                            .destination(getExampleVertex(edgeDef.getIdentifierClass(IdentifierType.DESTINATION), uniqueId2))
+                                            .directed(isAnEdgeDirected())
+                                            .build();
 
         populateProperties(edge, edgeDef, uniqueId1);
 

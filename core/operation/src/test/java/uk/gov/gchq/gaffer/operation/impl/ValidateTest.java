@@ -16,6 +16,7 @@
 
 package uk.gov.gchq.gaffer.operation.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Test;
 import uk.gov.gchq.gaffer.data.element.Edge;
 import uk.gov.gchq.gaffer.data.element.Element;
@@ -40,7 +41,7 @@ public class ValidateTest implements OperationTest {
 
     @Test
     @Override
-    public void shouldSerialiseAndDeserialiseOperation() throws SerialisationException {
+    public void shouldSerialiseAndDeserialiseOperation() throws SerialisationException, JsonProcessingException {
         // Given
         final List<Element> elements = new ArrayList<>();
         {
@@ -50,7 +51,7 @@ public class ValidateTest implements OperationTest {
 
         }
         {
-            final Edge elm2 = new Edge("edge type 2", "source vertex 1", "dest vertex 1", true);
+            final Edge elm2 = new Edge("edge type 2", "source vertex 1", "destination vertex 1", true);
             elm2.putProperty("property 2", "property 2 value");
             elements.add(elm2);
         }
@@ -72,7 +73,7 @@ public class ValidateTest implements OperationTest {
 
         final Edge elm2 = (Edge) itr.next();
         assertEquals("source vertex 1", elm2.getSource());
-        assertEquals("dest vertex 1", elm2.getDestination());
+        assertEquals("destination vertex 1", elm2.getDestination());
         assertTrue(elm2.isDirected());
         assertEquals(1, elm2.getProperties().size());
         assertEquals("property 2 value", elm2.getProperty("property 2"));
@@ -85,7 +86,7 @@ public class ValidateTest implements OperationTest {
     @Test
     @Override
     public void builderShouldCreatePopulatedOperation() {
-        Element edge = new Edge("testGroup");
+        Element edge = new Edge("testGroup", "source vertex", "dest vertex", true);
         Validate validate = new Validate.Builder().elements(Arrays.asList(edge)).skipInvalidElements(true).view(new View.Builder().edge("testEdgeGroup").build()).option("testOption", "true").build();
         assertEquals("true", validate.getOption("testOption"));
         assertTrue(validate.isSkipInvalidElements());

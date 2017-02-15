@@ -33,7 +33,7 @@ public class DataGenerator extends OneToOneElementGenerator<String> {
             element = new Edge.Builder()
                     .group("edge")
                     .source(Integer.parseInt(t[0]))
-                    .dest(Integer.parseInt(t[1]))
+                    .destination(Integer.parseInt(t[1]))
                     .directed(true)
                     .property("count", Integer.parseInt(t[2]))
                     .build();

@@ -20,7 +20,6 @@ import uk.gov.gchq.gaffer.data.element.Edge;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.Entity;
 import uk.gov.gchq.gaffer.data.generator.OneToManyElementGenerator;
-
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -39,7 +38,7 @@ public class DataGenerator12 extends OneToManyElementGenerator<String> {
             final Edge edge = new Edge.Builder()
                     .group("red")
                     .source("A")
-                    .dest("B")
+                    .destination("B")
                     .property("stringsSample", reservoirStringsUnion)
                     .build();
             elements.add(edge);
@@ -48,7 +47,7 @@ public class DataGenerator12 extends OneToManyElementGenerator<String> {
             final Edge edge = new Edge.Builder()
                     .group("blue")
                     .source("X")
-                    .dest("Y" + i)
+                    .destination("Y" + i)
                     .build();
             elements.add(edge);
             final ReservoirItemsUnion<String> reservoirStringsUnionX = ReservoirItemsUnion.getInstance(20);

@@ -309,26 +309,16 @@ public class GetElementsinRangesHandlerTest {
                 s = "0" + s;
             }
 
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource(s);
-
+            final Edge edge = new Edge(TestGroups.EDGE, s, "B", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
-            edge.setDestination("B");
-            edge.setDirected(true);
             elements.add(edge);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource(s);
+            final Edge edge2 = new Edge(TestGroups.EDGE, s, "B", true);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
-            edge2.setDestination("B");
-            edge2.setDirected(true);
             elements.add(edge2);
 
-            final Edge edge3 = new Edge(TestGroups.EDGE);
-            edge3.setSource(s);
+            final Edge edge3 = new Edge(TestGroups.EDGE, s, "B", true);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 5);
-            edge3.setDestination("B");
-            edge3.setDirected(true);
             elements.add(edge3);
         }
 

@@ -77,13 +77,13 @@ class KryoEdgeSerializer extends Serializer<Edge> {
     @Override
     public Edge read(final Kryo kryo, final Input input, final Class<Edge> type) {
         final String group = input.readString();
-        final Edge edge = new Edge(group);
+        final Edge.Builder builder = new Edge.Builder().group(group);
         Registration reg = kryo.readClass(input);
-        edge.setSource(kryo.readObject(input, reg.getType()));
+        builder.source(kryo.readObject(input, reg.getType()));
         reg = kryo.readClass(input);
-        edge.setDestination(kryo.readObject(input, reg.getType()));
-        edge.setDirected(input.readBoolean());
-        edge.copyProperties(kryo.readObjectOrNull(input, Properties.class));
-        return edge;
+        builder.destination(kryo.readObject(input, reg.getType()));
+        builder.directed(input.readBoolean());
+        builder.properties(kryo.readObjectOrNull(input, Properties.class));
+        return builder.build();
     }
 }

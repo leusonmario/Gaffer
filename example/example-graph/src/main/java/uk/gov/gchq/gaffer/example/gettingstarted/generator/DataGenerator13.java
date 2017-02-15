@@ -22,7 +22,6 @@ import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.Entity;
 import uk.gov.gchq.gaffer.data.generator.OneToManyElementGenerator;
 import uk.gov.gchq.gaffer.example.gettingstarted.analytic.LoadAndQuery8;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +39,7 @@ public class DataGenerator13 extends OneToManyElementGenerator<String> {
             final Edge edge = new Edge.Builder()
                     .group("red")
                     .source("A")
-                    .dest("B" + i)
+                    .destination("B" + i)
                     .property("startDate", midnight9th)
                     .property("endDate", midnight10th)
                     .property("count", 1L)
@@ -63,7 +62,7 @@ public class DataGenerator13 extends OneToManyElementGenerator<String> {
             final Edge edge = new Edge.Builder()
                     .group("red")
                     .source("A")
-                    .dest("B" + i)
+                    .destination("B" + i)
                     .property("startDate", midnight10th)
                     .property("endDate", midnight11th)
                     .property("count", 1L)

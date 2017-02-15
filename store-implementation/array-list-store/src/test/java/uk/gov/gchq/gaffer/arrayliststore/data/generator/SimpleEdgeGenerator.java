@@ -32,12 +32,13 @@ public class SimpleEdgeGenerator extends OneToOneElementGenerator<SimpleEdgeData
     }
 
     public Element getElement(final SimpleEdgeDataObject simpleDataObject) {
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setSource(simpleDataObject.getRight());
-        edge.setDestination(simpleDataObject.getLeft());
-        edge.setDirected(false);
-        edge.putProperty(TestPropertyNames.INT, simpleDataObject.getVisibility());
-        edge.putProperty(TestPropertyNames.STRING, simpleDataObject.getProperties());
+        final Edge edge = new Edge.Builder().group(TestGroups.EDGE)
+                                            .source(simpleDataObject.getRight())
+                                            .destination(simpleDataObject.getLeft())
+                                            .directed(false)
+                                            .property(TestPropertyNames.INT, simpleDataObject.getVisibility())
+                                            .property(TestPropertyNames.STRING, simpleDataObject.getProperties())
+                                            .build();
         return edge;
     }
 

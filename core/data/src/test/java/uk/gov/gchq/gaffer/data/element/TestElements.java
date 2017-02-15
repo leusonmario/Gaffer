@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Crown Copyright
+ * Copyright 2017 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package uk.gov.gchq.gaffer.data.element;
 
-package uk.gov.gchq.gaffer.operation;
+public class TestElements {
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.Test;
-import uk.gov.gchq.gaffer.exception.SerialisationException;
+    private TestElements() {
+        // private constructor to prevent instantiation
+    }
 
-public interface OperationTest {
-    @Test
-    void shouldSerialiseAndDeserialiseOperation() throws SerialisationException, JsonProcessingException;
+    public static Edge getDefaultEdge() {
+        return new Edge("group", "source vertex", "destination vertex", true);
+    }
 
-    @Test
-    void builderShouldCreatePopulatedOperation();
 }
-

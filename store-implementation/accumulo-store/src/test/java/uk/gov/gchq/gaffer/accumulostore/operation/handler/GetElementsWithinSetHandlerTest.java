@@ -260,10 +260,7 @@ public class GetElementsWithinSetHandlerTest {
             entity.putProperty(AccumuloPropertyNames.COUNT, 10000);
             data.add(entity);
             for (int i = 1; i < 100; i++) {
-                final Edge edge = new Edge(TestGroups.EDGE);
-                edge.setSource("A0");
-                edge.setDestination("A" + i);
-                edge.setDirected(true);
+                final Edge edge = new Edge(TestGroups.EDGE, "A0", "A" + i, true);
                 edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
                 edge.putProperty(AccumuloPropertyNames.COUNT, i);
                 edge.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -271,10 +268,7 @@ public class GetElementsWithinSetHandlerTest {
                 edge.putProperty(AccumuloPropertyNames.PROP_3, 0);
                 edge.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-                final Edge edge2 = new Edge(TestGroups.EDGE);
-                edge2.setSource("A0");
-                edge2.setDestination("A" + i);
-                edge2.setDirected(true);
+                final Edge edge2 = new Edge(TestGroups.EDGE, "A0", "A" + i, true);
                 edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 2);
                 edge2.putProperty(AccumuloPropertyNames.COUNT, i);
                 edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -282,10 +276,7 @@ public class GetElementsWithinSetHandlerTest {
                 edge2.putProperty(AccumuloPropertyNames.PROP_3, 0);
                 edge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-                final Edge edge3 = new Edge(TestGroups.EDGE);
-                edge3.setSource("A0");
-                edge3.setDestination("A" + i);
-                edge3.setDirected(true);
+                final Edge edge3 = new Edge(TestGroups.EDGE, "A0", "A" + i, true);
                 edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
                 edge3.putProperty(AccumuloPropertyNames.COUNT, i);
                 edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);

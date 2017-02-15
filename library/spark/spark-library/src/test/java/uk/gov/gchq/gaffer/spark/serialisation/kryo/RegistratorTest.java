@@ -60,11 +60,12 @@ public class RegistratorTest {
     @Test
     public void testEdge() {
         // Given
-        Edge edge = new Edge("group");
-        edge.setSource("abc");
-        edge.setDestination("xyz");
-        edge.setDirected(true);
-        edge.putProperty("property1", 1);
+        Edge edge = new Edge.Builder().group("group")
+                                      .source("abc")
+                                      .destination("xyz")
+                                      .directed(true)
+                                      .property("property1", 1)
+                                      .build();
 
         // When
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -87,9 +87,7 @@ public class ByteEntityBloomElementFunctorTest {
     @Test
     public void shouldTransformRangeEdge() throws AccumuloElementConversionException {
         // Create Range formed from one edge and shouldRetieveElementsInRangeBetweenSeeds
-        final Edge edge1 = new Edge(TestGroups.EDGE);
-        edge1.setSource(1);
-        edge1.setDestination(2);
+        final Edge edge1 = new Edge(TestGroups.EDGE, 1, 2, false);
         final Pair<Key> keys = elementConverter.getKeysFromEdge(edge1);
         final Range range1 = new Range(keys.getFirst().getRow(), true, keys.getFirst().getRow(), true);
         final org.apache.hadoop.util.bloom.Key expectedBloomKey1 = new org.apache.hadoop.util.bloom.Key(elementFunctor.getVertexFromRangeKey(keys.getFirst().getRowData().getBackingArray()));
@@ -107,9 +105,7 @@ public class ByteEntityBloomElementFunctorTest {
     @Test
     public void shouldTransformKeyEdge() throws AccumuloElementConversionException {
         // Create Key formed from edge and shouldRetieveElementsInRangeBetweenSeeds
-        final Edge edge1 = new Edge(TestGroups.EDGE);
-        edge1.setSource(1);
-        edge1.setDestination(2);
+        final Edge edge1 = new Edge(TestGroups.EDGE, 1, 2, false);
         final Pair<Key> keys = elementConverter.getKeysFromEdge(edge1);
         final Range range1 = new Range(keys.getFirst().getRow(), true, keys.getFirst().getRow(), true);
         final org.apache.hadoop.util.bloom.Key expectedBloomKey1 = new org.apache.hadoop.util.bloom.Key(elementFunctor.getVertexFromRangeKey(keys.getFirst().getRowData().getBackingArray()));
@@ -128,9 +124,7 @@ public class ByteEntityBloomElementFunctorTest {
         final Key key1 = elementConverter.getKeyFromEntity(entity);
 
         // Create edge from that entity
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setSource(1);
-        edge.setDestination(2);
+        final Edge edge = new Edge(TestGroups.EDGE, 1, 2, false);
         //        String key2 = ConversionUtils.getRowKeysFromEdge(edge).getFirst();
         final Key key2 = elementConverter.getKeysFromEdge(edge).getFirst();
 
@@ -165,9 +159,7 @@ public class ByteEntityBloomElementFunctorTest {
     public void shouldTransformRangeWhenRangeHasUnspecifiedStartOrEndKey() {
         try {
             // Create Range with unspecified start key and shouldRetieveElementsInRangeBetweenSeeds - should get null
-            final Edge edge1 = new Edge(TestGroups.EDGE);
-            edge1.setSource("3");
-            edge1.setDestination("4");
+            final Edge edge1 = new Edge(TestGroups.EDGE, "3", "4", false);
             final Pair<Key> keys = elementConverter.getKeysFromEdge(edge1);
             final Range range1 = new Range(null, true, keys.getFirst().getRow(), true);
             assertNull(elementFunctor.transform(range1));

@@ -60,16 +60,10 @@ public class GetJavaRDDOfAllElementsHandlerTest {
             final Entity entity = new Entity(TestGroups.ENTITY);
             entity.setVertex("" + i);
 
-            final Edge edge1 = new Edge(TestGroups.EDGE);
-            edge1.setSource("" + i);
-            edge1.setDestination("B");
-            edge1.setDirected(false);
+            final Edge edge1 = new Edge(TestGroups.EDGE, "" + i, "B", false);
             edge1.putProperty(TestPropertyNames.COUNT, 2);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("" + i);
-            edge2.setDestination("C");
-            edge2.setDirected(false);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "" + i, "C", false);
             edge2.putProperty(TestPropertyNames.COUNT, 4);
 
             elements.add(edge1);

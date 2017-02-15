@@ -24,6 +24,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import uk.gov.gchq.gaffer.data.element.Edge;
 import uk.gov.gchq.gaffer.data.element.Properties;
 import uk.gov.gchq.gaffer.data.element.PropertiesTuple;
+import uk.gov.gchq.gaffer.data.element.TestElements;
 import uk.gov.gchq.gaffer.function.AggregateFunction;
 import uk.gov.gchq.gaffer.function.context.PassThroughFunctionContext;
 import java.util.Collections;
@@ -55,7 +56,7 @@ public class ElementAggregatorTest {
 
         aggregator.addFunction(functionContext1);
 
-        final Edge edge = new Edge("group");
+        final Edge edge = TestElements.getDefaultEdge();
         edge.putProperty(reference, value);
 
         final ArgumentCaptor<PropertiesTuple> propertiesTupleCaptor = ArgumentCaptor.forClass(PropertiesTuple.class);
@@ -107,18 +108,24 @@ public class ElementAggregatorTest {
     public void shouldAggregateWithNoPropertiesOrFunctions() {
         // Given
         final ElementAggregator aggregator = new ElementAggregator();
-        final Edge edge1 = new Edge("group");
-        final Edge edge2 = new Edge("group");
+        final Edge edge1 = TestElements.getDefaultEdge();
+        final Edge edge2 = TestElements.getDefaultEdge();
+
+        System.out.println(edge1.getProperties());
 
         // When - aggregate and set state
         aggregator.aggregate(edge1);
         aggregator.aggregate(edge2);
 
-        final Edge aggregatedEdge = new Edge("group");
+        System.out.println(edge1.getProperties());
+        System.out.println(edge2.getProperties());
+
+        final Edge aggregatedEdge = TestElements.getDefaultEdge();
         aggregator.state(aggregatedEdge);
 
         // Then
-        assertTrue(aggregatedEdge.getProperties().isEmpty());
+        System.out.println(aggregatedEdge.getProperties().size());
+        assertTrue(aggregatedEdge.getProperties().size() == 0);
     }
 
     @Test
@@ -133,7 +140,7 @@ public class ElementAggregatorTest {
 
         aggregator.addFunction(functionContext1);
 
-        final Edge edge = new Edge("group");
+        final Edge edge = TestElements.getDefaultEdge();
 
         // When
         aggregator.state(edge);

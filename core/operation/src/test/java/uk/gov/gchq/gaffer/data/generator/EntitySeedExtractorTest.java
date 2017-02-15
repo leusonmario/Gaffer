@@ -67,7 +67,7 @@ public class EntitySeedExtractorTest {
         final EntitySeed seed = extractor.getObject(edge);
 
         // Then
-        assertEquals("source", seed.getVertex());
+        assertEquals("destination", seed.getVertex());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class EntitySeedExtractorTest {
         final EntitySeed seed = extractor.getObject(edge);
 
         // Then
-        assertEquals("destination", seed.getVertex());
+        assertEquals("source", seed.getVertex());
     }
 
     @Test

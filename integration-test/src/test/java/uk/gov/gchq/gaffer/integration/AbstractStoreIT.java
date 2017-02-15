@@ -68,7 +68,7 @@ public abstract class AbstractStoreIT {
 
     // Identifier prefixes
     protected static final String SOURCE = "source";
-    protected static final String DEST = "dest";
+    protected static final String DEST = "destination";
     protected static final String SOURCE_DIR = "sourceDir";
     protected static final String DEST_DIR = "destDir";
     protected static final String A = "A";

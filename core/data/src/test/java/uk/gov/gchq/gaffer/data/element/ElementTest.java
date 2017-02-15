@@ -16,6 +16,8 @@
 
 package uk.gov.gchq.gaffer.data.element;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -27,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser.createDefaultMapper;
 
 @RunWith(MockitoJUnitRunner.class)
 public abstract class ElementTest {
@@ -52,16 +55,6 @@ public abstract class ElementTest {
         // Then
         assertEquals(group, element.getGroup());
         assertSame(properties, element.getProperties());
-    }
-
-    @Test
-    public void shouldCreateElementWithUnknownGroup() {
-        // Given
-        // When
-        final Element element = newElement();
-
-        // Then
-        assertEquals(Element.DEFAULT_GROUP, element.getGroup());
     }
 
     @Test
@@ -154,7 +147,7 @@ public abstract class ElementTest {
     }
 
     @Test
-    public void shouldSerialiseAndDeserialiseProperties() throws SerialisationException {
+    public void shouldSerialiseAndDeserialiseProperties() throws SerialisationException, JsonProcessingException {
         // Given
         final Element element = newElement("group");
         final Properties properties = new Properties();
@@ -170,6 +163,8 @@ public abstract class ElementTest {
         // When
         final byte[] serialisedElement = serialiser.serialise(element);
         final Element deserialisedElement = serialiser.deserialise(serialisedElement, element.getClass());
+
+        final ObjectMapper mapper = createDefaultMapper();
 
         // Then
         assertEquals(element, deserialisedElement);

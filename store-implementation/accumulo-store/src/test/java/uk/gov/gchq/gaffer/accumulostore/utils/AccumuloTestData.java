@@ -79,17 +79,11 @@ public class AccumuloTestData {
        EDGE_A_B_1.putProperty(AccumuloPropertyNames.COUNT, 1);
        EDGE_A_B_2.putProperty(AccumuloPropertyNames.COUNT, 2);
 
-       EDGE_C_D_UNDIRECTED = new Edge(TestGroups.EDGE);
-       EDGE_C_D_UNDIRECTED.setSource("C");
-       EDGE_C_D_UNDIRECTED.setDestination("D");
-       EDGE_C_D_UNDIRECTED.setDirected(false);
+       EDGE_C_D_UNDIRECTED = new Edge(TestGroups.EDGE, "C", "D", false);
        EDGE_C_D_UNDIRECTED.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
        EDGE_C_D_UNDIRECTED.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-       EDGE_C_D_DIRECTED = new Edge(TestGroups.EDGE);
-       EDGE_C_D_DIRECTED.setSource("C");
-       EDGE_C_D_DIRECTED.setDestination("D");
-       EDGE_C_D_DIRECTED.setDirected(true);
+       EDGE_C_D_DIRECTED = new Edge(TestGroups.EDGE, "C", "D", true);
        EDGE_C_D_DIRECTED.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 2);
        EDGE_C_D_DIRECTED.putProperty(AccumuloPropertyNames.COUNT, 1);
 

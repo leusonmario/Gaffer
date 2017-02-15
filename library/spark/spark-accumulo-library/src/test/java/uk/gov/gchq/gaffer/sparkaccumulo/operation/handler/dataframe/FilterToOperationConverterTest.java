@@ -460,10 +460,7 @@ public class FilterToOperationConverterTest {
             entity.putProperty("property4", i * 2L);
             entity.putProperty("count", 6L);
 
-            final Edge edge1 = new Edge(GetDataFrameOfElementsHandlerTest.EDGE_GROUP);
-            edge1.setSource("" + i);
-            edge1.setDestination("B");
-            edge1.setDirected(true);
+            final Edge edge1 = new Edge(GetDataFrameOfElementsHandlerTest.EDGE_GROUP, "" + i, "B", true);
             edge1.putProperty("columnQualifier", 1);
             edge1.putProperty("property1", 2);
             edge1.putProperty("property2", 3.0F);
@@ -471,10 +468,7 @@ public class FilterToOperationConverterTest {
             edge1.putProperty("property4", 5L);
             edge1.putProperty("count", 100L);
 
-            final Edge edge2 = new Edge(GetDataFrameOfElementsHandlerTest.EDGE_GROUP);
-            edge2.setSource("" + i);
-            edge2.setDestination("C");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(GetDataFrameOfElementsHandlerTest.EDGE_GROUP, "" + i, "C", true);
             edge2.putProperty("columnQualifier", 6);
             edge2.putProperty("property1", 7);
             edge2.putProperty("property2", 8.0F);
@@ -482,10 +476,7 @@ public class FilterToOperationConverterTest {
             edge2.putProperty("property4", 10L);
             edge2.putProperty("count", i * 200L);
 
-            final Edge edge3 = new Edge(GetDataFrameOfElementsHandlerTest.EDGE_GROUP2);
-            edge3.setSource("" + i);
-            edge3.setDestination("D");
-            edge3.setDirected(false);
+            final Edge edge3 = new Edge(GetDataFrameOfElementsHandlerTest.EDGE_GROUP2, "" + i, "D", false);
             edge3.putProperty("property1", 1000);
 
             elements.add(edge1);

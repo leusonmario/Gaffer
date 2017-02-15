@@ -23,9 +23,10 @@ import uk.gov.gchq.gaffer.commonutil.TestGroups;
 import uk.gov.gchq.gaffer.commonutil.TestPropertyNames;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
-import java.util.Date;
 import java.util.Map.Entry;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -36,17 +37,12 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldSetAndGetFields() {
         // Given
-        final Edge edge = new Edge("group");
-
-        // When
-        edge.setSource("source vertex");
-        edge.setDestination("dest vertex");
-        edge.setDirected(true);
+        final Edge edge = TestElements.getDefaultEdge();
 
         // Then
         assertEquals("group", edge.getGroup());
         assertEquals("source vertex", edge.getSource());
-        assertEquals("dest vertex", edge.getDestination());
+        assertEquals("destination vertex", edge.getDestination());
         assertTrue(edge.isDirected());
     }
 
@@ -54,7 +50,7 @@ public class EdgeTest extends ElementTest {
     public void shouldBuildEdge() {
         // Given
         final String source = "source vertex";
-        final String destination = "dest vertex";
+        final String destination = "destination vertex";
         final boolean directed = true;
         final String propValue = "propValue";
 
@@ -62,7 +58,7 @@ public class EdgeTest extends ElementTest {
         final Edge edge = new Edge.Builder()
                 .group(TestGroups.EDGE)
                 .source(source)
-                .dest(destination)
+                .destination(destination)
                 .directed(directed)
                 .property(TestPropertyNames.STRING, propValue)
                 .build();
@@ -79,7 +75,7 @@ public class EdgeTest extends ElementTest {
     public void shouldConstructEdge() {
         // Given
         final String source = "source vertex";
-        final String destination = "dest vertex";
+        final String destination = "destination vertex";
         final boolean directed = true;
         final String propValue = "propValue";
 
@@ -99,7 +95,7 @@ public class EdgeTest extends ElementTest {
     public void shouldCloneEdge() {
         // Given
         final String source = "source vertex";
-        final String destination = "dest vertex";
+        final String destination = "destination vertex";
         final boolean directed = true;
         final String propValue = "propValue";
 
@@ -114,10 +110,7 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnTrueForEqualsWithTheSameInstance() {
         // Given
-        final Edge edge = new Edge("group");
-        edge.setSource("source vertex");
-        edge.setDestination("dest vertex");
-        edge.setDirected(true);
+        final Edge edge = TestElements.getDefaultEdge();
 
         // When
         boolean isEqual = edge.equals(edge);
@@ -130,10 +123,7 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnTrueForEqualsWhenAllCoreFieldsAreEqual() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = TestElements.getDefaultEdge();
         edge1.putProperty("some property", "some value");
 
         final Edge edge2 = cloneCoreFields(edge1);
@@ -150,10 +140,7 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnTrueForEqualsWhenAllFieldsAreEqual() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = TestElements.getDefaultEdge();
         edge1.putProperty("some property", "some value");
 
         final Edge edge2 = cloneCoreFields(edge1);
@@ -170,15 +157,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnFalseForEqualsWhenGroupIsDifferent() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = TestElements.getDefaultEdge();
 
-        final Edge edge2 = new Edge("a different group");
-        edge2.setSource(edge1.getSource());
-        edge2.setDestination(edge1.getDestination());
-        edge2.setDirected(edge1.isDirected());
+        final Edge edge2 = new Edge("a different group", edge1.getSource(), edge1
+                .getDestination(), edge1.isDirected());
 
         // When
         boolean isEqual = edge1.equals((Object) edge2);
@@ -191,13 +173,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnFalseForEqualsWhenDirectedIsDifferent() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = TestElements.getDefaultEdge();
 
-        final Edge edge2 = cloneCoreFields(edge1);
-        edge2.setDirected(!edge1.isDirected());
+        Edge edge2 = cloneCoreFields(edge1);
+        edge2 = setDirected(edge2, !edge1.isDirected());
 
         // When
         boolean isEqual = edge1.equals((Object) edge2);
@@ -210,13 +189,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnFalseForEqualsWhenSourceIsDifferent() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = TestElements.getDefaultEdge();
 
-        final Edge edge2 = cloneCoreFields(edge1);
-        edge2.setSource("different source");
+        Edge edge2 = cloneCoreFields(edge1);
+        edge2 = setSource(edge2, "different source");
 
         // When
         boolean isEqual = edge1.equals((Object) edge2);
@@ -229,13 +205,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnFalseForEqualsWhenDestinationIsDifferent() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = TestElements.getDefaultEdge();
 
-        final Edge edge2 = cloneCoreFields(edge1);
-        edge2.setDestination("different dest vertex");
+        Edge edge2 = cloneCoreFields(edge1);
+        edge2 = setDestination(edge2, "different destination vertex");
 
         // When
         boolean isEqual = edge1.equals((Object) edge2);
@@ -248,16 +221,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnTrueForEqualsWhenUndirectedIdentifiersFlipped() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(false);
+        final Edge edge1 = new Edge("group", "source vertex", "destination vertex", false);
 
         // Given
-        final Edge edge2 = new Edge("group");
-        edge2.setSource("dest vertex");
-        edge2.setDestination("source vertex");
-        edge2.setDirected(false);
+        final Edge edge2 = new Edge("group", "destination vertex", "source vertex", false);
 
         // When
         boolean isEqual = edge1.equals((Object) edge2);
@@ -270,16 +237,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldReturnFalseForEqualsWhenDirectedIdentifiersFlipped() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(true);
+        final Edge edge1 = new Edge("group", "source vertex", "destination vertex", true);
 
         // Given
-        final Edge edge2 = new Edge("group");
-        edge2.setSource("dest vertex");
-        edge2.setDestination("source vertex");
-        edge2.setDirected(true);
+        final Edge edge2 = new Edge("group", "destination vertex", "source vertex", true);
 
         // When
         boolean isEqual = edge1.equals((Object) edge2);
@@ -292,16 +253,10 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldCreateUndirectedEdgesUsingNaturalOrdering() {
         // Given
-        final Edge edge1 = new Edge("group");
-        edge1.setSource("source vertex");
-        edge1.setDestination("dest vertex");
-        edge1.setDirected(false);
+        final Edge edge1 = new Edge("group", "source vertex", "destination vertex", false);
 
         // Given
-        final Edge edge2 = new Edge("group");
-        edge2.setSource("dest vertex");
-        edge2.setDestination("source vertex");
-        edge2.setDirected(false);
+        final Edge edge2 = new Edge("group", "destination vertex", "source vertex", false);
 
         // Then
         assertEquals(edge1, edge2);
@@ -311,39 +266,52 @@ public class EdgeTest extends ElementTest {
     @Test
     public void shouldSerialiseAndDeserialiseIdentifiers() throws SerialisationException {
         // Given
-        final Edge edge = newElement("group");
-        edge.setSource(1L);
-        edge.setDestination(new Date(2L));
-        edge.setDirected(true);
+        final Edge edge = new Edge("group", 1L, 2L, true);
 
         final JSONSerialiser serialiser = new JSONSerialiser();
 
         // When
         final byte[] serialisedElement = serialiser.serialise(edge);
-        final Edge deserialisedElement = serialiser.deserialise(serialisedElement, edge
-                .getClass());
+        final Edge deserialisedElement = serialiser.deserialise(serialisedElement, edge.getClass());
 
         // Then
         assertEquals(edge, deserialisedElement);
     }
 
+    @Test
+    public void shouldCreateUndirectedEdgesWithNaturalOrdering() {
+        // Given
+        final Edge edge1 = new Edge("group", "B", "A", false);
+        final Edge edge2 = new Edge("group", 2, 1, false);
+
+        // Then
+        assertThat(edge1.getSource(), is("A"));
+        assertThat(edge2.getSource(), is(1));
+
+        assertThat(edge1.getDestination(), is("B"));
+        assertThat(edge2.getDestination(), is(2));
+    }
+
     @Override
     protected Edge newElement(final String group) {
-        return new Edge(group);
+        return new Edge.Builder().group(group)
+                                 .source("source vertex")
+                                 .destination("destination vertex")
+                                 .directed(true)
+                                 .build();
     }
 
     @Override
     protected Edge newElement() {
-        return new Edge();
+        return new Edge.Builder().source("source vertex")
+                                 .destination("destination vertex")
+                                 .directed(true)
+                                 .build();
     }
 
     private Edge cloneCoreFields(final Edge edge) {
-        final Edge newEdge = new Edge(edge.getGroup());
-        newEdge.setSource(edge.getSource());
-        newEdge.setDestination(edge.getDestination());
-        newEdge.setDirected(edge.isDirected());
-
-        return newEdge;
+        return new Edge(edge.getGroup(), edge.getSource(), edge.getDestination(), edge
+                .isDirected());
     }
 
     private Edge cloneAllFields(final Edge edge) {
@@ -355,5 +323,32 @@ public class EdgeTest extends ElementTest {
         }
 
         return newEdge;
+    }
+
+    private Edge setSource(final Edge edge, final Object source) {
+        return new Edge.Builder().group(edge.getGroup())
+                                 .source(source)
+                                 .destination(edge.getDestination())
+                                 .directed(edge.isDirected())
+                                 .properties(edge.getProperties())
+                                 .build();
+    }
+
+    private Edge setDestination(final Edge edge, final Object destination) {
+        return new Edge.Builder().group(edge.getGroup())
+                                 .source(edge.getDestination())
+                                 .destination(destination)
+                                 .directed(edge.isDirected())
+                                 .properties(edge.getProperties())
+                                 .build();
+    }
+
+    private Edge setDirected(final Edge edge, final boolean directed) {
+        return new Edge.Builder().group(edge.getGroup())
+                                 .source(edge.getDestination())
+                                 .destination(edge.getDestination())
+                                 .directed(directed)
+                                 .properties(edge.getProperties())
+                                 .build();
     }
 }

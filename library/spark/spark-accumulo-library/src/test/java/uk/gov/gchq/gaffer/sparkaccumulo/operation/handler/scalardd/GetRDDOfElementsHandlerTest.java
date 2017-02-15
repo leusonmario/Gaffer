@@ -64,16 +64,10 @@ public class GetRDDOfElementsHandlerTest {
             final Entity entity = new Entity(ENTITY_GROUP);
             entity.setVertex("" + i);
 
-            final Edge edge1 = new Edge(EDGE_GROUP);
-            edge1.setSource("" + i);
-            edge1.setDestination("B");
-            edge1.setDirected(false);
+            final Edge edge1 = new Edge(EDGE_GROUP, "" + i, "B", false);
             edge1.putProperty("count", 2);
 
-            final Edge edge2 = new Edge(EDGE_GROUP);
-            edge2.setSource("" + i);
-            edge2.setDestination("C");
-            edge2.setDirected(false);
+            final Edge edge2 = new Edge(EDGE_GROUP, "" + i, "C", false);
             edge2.putProperty("count", 4);
 
             elements.add(edge1);
@@ -117,15 +111,9 @@ public class GetRDDOfElementsHandlerTest {
         final Set<Element> expectedElements = new HashSet<>();
         final Entity entity1 = new Entity(ENTITY_GROUP);
         entity1.setVertex("1");
-        final Edge edge1B = new Edge(EDGE_GROUP);
-        edge1B.setSource("1");
-        edge1B.setDestination("B");
-        edge1B.setDirected(false);
+        final Edge edge1B = new Edge(EDGE_GROUP, "1", "B", false);
         edge1B.putProperty("count", 2);
-        final Edge edge1C = new Edge(EDGE_GROUP);
-        edge1C.setSource("1");
-        edge1C.setDestination("C");
-        edge1C.setDirected(false);
+        final Edge edge1C = new Edge(EDGE_GROUP, "1", "C", false);
         edge1C.putProperty("count", 4);
         expectedElements.add(entity1);
         expectedElements.add(edge1B);
@@ -200,15 +188,9 @@ public class GetRDDOfElementsHandlerTest {
         }
         final Entity entity5 = new Entity(ENTITY_GROUP);
         entity5.setVertex("5");
-        final Edge edge5B = new Edge(EDGE_GROUP);
-        edge5B.setSource("5");
-        edge5B.setDestination("B");
-        edge5B.setDirected(false);
+        final Edge edge5B = new Edge(EDGE_GROUP, "5", "B", false);
         edge5B.putProperty("count", 2);
-        final Edge edge5C = new Edge(EDGE_GROUP);
-        edge5C.setSource("5");
-        edge5C.setDestination("C");
-        edge5C.setDirected(false);
+        final Edge edge5C = new Edge(EDGE_GROUP, "5", "C", false);
         edge5C.putProperty("count", 4);
         expectedElements.clear();
         expectedElements.add(entity1);
@@ -236,16 +218,10 @@ public class GetRDDOfElementsHandlerTest {
             final Entity entity = new Entity(ENTITY_GROUP);
             entity.setVertex("" + i);
 
-            final Edge edge1 = new Edge(EDGE_GROUP);
-            edge1.setSource("" + i);
-            edge1.setDestination("B");
-            edge1.setDirected(false);
+            final Edge edge1 = new Edge(EDGE_GROUP, "" + i, "B", false);
             edge1.putProperty("count", 2);
 
-            final Edge edge2 = new Edge(EDGE_GROUP);
-            edge2.setSource("" + i);
-            edge2.setDestination("C");
-            edge2.setDirected(false);
+            final Edge edge2 = new Edge(EDGE_GROUP, "" + i, "C", false);
             edge2.putProperty("count", 4);
 
             elements.add(edge1);
@@ -289,10 +265,7 @@ public class GetRDDOfElementsHandlerTest {
         }
 
         final Set<Element> expectedElements = new HashSet<>();
-        final Edge edge1B = new Edge(EDGE_GROUP);
-        edge1B.setSource("1");
-        edge1B.setDestination("B");
-        edge1B.setDirected(false);
+        final Edge edge1B = new Edge(EDGE_GROUP, "1", "B", false);
         edge1B.putProperty("count", 2);
         expectedElements.add(edge1B);
         assertEquals(expectedElements, results);
@@ -366,10 +339,7 @@ public class GetRDDOfElementsHandlerTest {
         for (int i = 0; i < returnedElements.length; i++) {
             results.add(returnedElements[i]);
         }
-        final Edge edge5C = new Edge(EDGE_GROUP);
-        edge5C.setSource("5");
-        edge5C.setDestination("C");
-        edge5C.setDirected(false);
+        final Edge edge5C = new Edge(EDGE_GROUP, "5", "C", false);
         edge5C.putProperty("count", 4);
         expectedElements.clear();
         expectedElements.add(edge1B);

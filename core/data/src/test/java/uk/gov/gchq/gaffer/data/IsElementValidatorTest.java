@@ -42,7 +42,7 @@ public class IsElementValidatorTest {
     @Test
     public void shouldValidateWhenEdge() {
         // Given
-        final Element element = new Edge(TestGroups.EDGE);
+        final Element element = new Edge(TestGroups.EDGE, "source vertex", "destination vertex", true);
 
         // When
         final boolean valid = new IsElementValidator().validate(element);

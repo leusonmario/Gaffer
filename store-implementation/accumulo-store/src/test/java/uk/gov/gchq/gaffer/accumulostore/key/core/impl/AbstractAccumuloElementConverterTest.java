@@ -64,10 +64,7 @@ public abstract class AbstractAccumuloElementConverterTest {
     @Test
     public void shouldReturnAccumuloKeyConverterFromBasicEdge() throws SchemaException, AccumuloElementConversionException, IOException {
         // Given
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setDestination("2");
-        edge.setSource("1");
-        edge.setDirected(true);
+        final Edge edge = new Edge(TestGroups.EDGE, "2", "1", true);
 
         // When
         final Pair<Key> keys = converter.getKeysFromElement(edge);
@@ -96,10 +93,7 @@ public abstract class AbstractAccumuloElementConverterTest {
     @Test
     public void shouldReturnAccumuloKeyConverterFromCFCQPropertydEdge() throws SchemaException, AccumuloElementConversionException, IOException {
         // Given
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setDestination("2");
-        edge.setSource("1");
-        edge.setDirected(false);
+        final Edge edge = new Edge(TestGroups.EDGE, "2", "1", false);
         edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 100);
 
         // When
@@ -132,10 +126,7 @@ public abstract class AbstractAccumuloElementConverterTest {
     @Test
     public void shouldReturnAccumuloKeyConverterMultipleCQPropertydEdge() throws SchemaException, AccumuloElementConversionException, IOException {
         // Given
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setDestination("2");
-        edge.setSource("1");
-        edge.setDirected(true);
+        final Edge edge = new Edge(TestGroups.EDGE, "2", "1", true);
         edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 100);
 
         // When
@@ -168,10 +159,7 @@ public abstract class AbstractAccumuloElementConverterTest {
     @Test
     public void shouldGetOriginalEdgeWithMatchAsSourceNotSet() throws SchemaException, AccumuloElementConversionException, IOException {
         // Given
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setDestination("2");
-        edge.setSource("1");
-        edge.setDirected(true);
+        final Edge edge = new Edge(TestGroups.EDGE, "2", "1", true);
         edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 100);
 
         final Pair<Key> keys = converter.getKeysFromElement(edge);
@@ -190,10 +178,7 @@ public abstract class AbstractAccumuloElementConverterTest {
     @Test
     public void shouldGetFlippedEdgeWithMatchAsSourceFalse() throws SchemaException, AccumuloElementConversionException, IOException {
         // Given
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setDestination("2");
-        edge.setSource("1");
-        edge.setDirected(true);
+        final Edge edge = new Edge(TestGroups.EDGE, "2", "1", true);
         edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 100);
 
         final Pair<Key> keys = converter.getKeysFromElement(edge);
@@ -213,10 +198,7 @@ public abstract class AbstractAccumuloElementConverterTest {
     @Test
     public void shouldSkipNullPropertyValuesWhenCreatingAccumuloKey() throws SchemaException, AccumuloElementConversionException, IOException {
         // Given
-        final Edge edge = new Edge(TestGroups.EDGE);
-        edge.setSource("1");
-        edge.setDestination("2");
-        edge.setDirected(true);
+        final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
         edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, null);
 
         // When

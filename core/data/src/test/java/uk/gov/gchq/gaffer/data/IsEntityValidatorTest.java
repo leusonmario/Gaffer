@@ -18,9 +18,9 @@ package uk.gov.gchq.gaffer.data;
 
 import org.junit.Test;
 import uk.gov.gchq.gaffer.commonutil.TestGroups;
-import uk.gov.gchq.gaffer.data.element.Edge;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.Entity;
+import uk.gov.gchq.gaffer.data.element.TestElements;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -42,7 +42,7 @@ public class IsEntityValidatorTest {
     @Test
     public void shouldNotValidateWhenEdge() {
         // Given
-        final Element element = new Edge(TestGroups.EDGE);
+        final Element element = TestElements.getDefaultEdge();
 
         // When
         final boolean valid = new IsEntityValidator().validate(element);

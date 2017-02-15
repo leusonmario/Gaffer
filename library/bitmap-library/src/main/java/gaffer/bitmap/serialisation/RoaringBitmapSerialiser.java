@@ -19,7 +19,6 @@ import gaffer.bitmap.serialisation.utils.RoaringBitmapUtils;
 import org.roaringbitmap.RoaringBitmap;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.serialisation.Serialisation;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;

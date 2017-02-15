@@ -50,7 +50,7 @@ public class GenerateObjectsExample extends OperationExample {
                                 .build(),
                         new Edge.Builder()
                                 .group("edge")
-                                .source(5).dest(6).directed(true)
+                                .source(5).destination(6).directed(true)
                                 .property("count", 1)
                                 .build()))
                 .generator(new DataGenerator())
@@ -71,7 +71,7 @@ public class GenerateObjectsExample extends OperationExample {
                                 .build(),
                         new Edge.Builder()
                                 .group("edge")
-                                .source(5).dest(6).directed(true)
+                                .source(5).destination(6).directed(true)
                                 .property("count", 1)
                                 .build()))
                 .generator(new DomainObjectGenerator())

@@ -43,8 +43,9 @@ public class LazyEdge extends Edge {
         this(edge, valueLoader, new LazyProperties(edge.getProperties(), valueLoader));
     }
 
+    // TODO: Fix LazyEdge behaviour
     protected LazyEdge(final Edge edge, final ElementValueLoader valueLoader, final LazyProperties lazyProperties) {
-        super(edge.getGroup());
+        super(edge.getGroup(), edge.getSource(), edge.getDestination(), edge.isDirected());
         this.edge = edge;
         this.valueLoader = valueLoader;
         this.lazyProperties = lazyProperties;
@@ -75,23 +76,23 @@ public class LazyEdge extends Edge {
         return (boolean) lazyLoadIdentifier(IdentifierType.DIRECTED);
     }
 
-    @Override
-    public void setSource(final Object source) {
-        edge.setSource(source);
-        loadedIdentifiers.add(IdentifierType.SOURCE);
-    }
-
-    @Override
-    public void setDestination(final Object destination) {
-        edge.setDestination(destination);
-        loadedIdentifiers.add(IdentifierType.DESTINATION);
-    }
-
-    @Override
-    public void setDirected(final boolean directed) {
-        edge.setDirected(directed);
-        loadedIdentifiers.add(IdentifierType.DIRECTED);
-    }
+//    @Override
+//    public void setSource(final Object source) {
+//        edge.setSource(source);
+//        loadedIdentifiers.add(IdentifierType.SOURCE);
+//    }
+//
+//    @Override
+//    public void setDestination(final Object destination) {
+//        edge.setDestination(destination);
+//        loadedIdentifiers.add(IdentifierType.DESTINATION);
+//    }
+//
+//    @Override
+//    public void setDirected(final boolean directed) {
+//        edge.setDirected(directed);
+//        loadedIdentifiers.add(IdentifierType.DIRECTED);
+//    }
 
     @Override
     public void putProperty(final String name, final Object value) {

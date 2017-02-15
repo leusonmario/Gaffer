@@ -74,16 +74,10 @@ public class InputFormatTest {
             entity.setVertex("" + i);
             entity.putProperty("property1", 1);
 
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("" + i);
-            edge.setDestination("B");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "" + i, "B", true);
             edge.putProperty("property1", 2);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("" + i);
-            edge2.setDestination("C");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "" + i, "C", true);
             edge2.putProperty("property2", 3);
 
             DATA.add(edge);

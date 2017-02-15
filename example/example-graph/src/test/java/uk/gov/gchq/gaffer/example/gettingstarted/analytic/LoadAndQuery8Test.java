@@ -84,7 +84,7 @@ public class LoadAndQuery8Test {
         final Edge[] expectedResults = {
                 new Edge.Builder()
                         .source("1")
-                        .dest("2")
+                        .destination("2")
                         .directed(true)
                         .group(EDGE_GROUP)
                         .property(COUNT, 4L)
@@ -94,7 +94,7 @@ public class LoadAndQuery8Test {
                         .build(),
                 new Edge.Builder()
                         .source("1")
-                        .dest("3")
+                        .destination("3")
                         .directed(true)
                         .group(EDGE_GROUP)
                         .property(COUNT, 2L)

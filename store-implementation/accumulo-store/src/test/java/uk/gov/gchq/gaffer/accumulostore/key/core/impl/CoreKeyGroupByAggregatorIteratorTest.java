@@ -107,10 +107,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
         try {
 
             // Create edge
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("1");
-            edge.setDestination("2");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 8);
             edge.putProperty(AccumuloPropertyNames.PROP_1, 0);
             edge.putProperty(AccumuloPropertyNames.PROP_2, 0);
@@ -119,10 +116,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
             //THIS EDGE WILL BE REDUCED MEANING ITS CQ (columnQualifier) will only occur once because its key is equal.
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("1");
-            edge2.setDestination("2");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
             edge2.putProperty(AccumuloPropertyNames.PROP_2, 0);
@@ -130,10 +124,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge2.putProperty(AccumuloPropertyNames.COUNT, 2);
 
-            final Edge edge3 = new Edge(TestGroups.EDGE);
-            edge3.setSource("1");
-            edge3.setDestination("2");
-            edge3.setDirected(true);
+            final Edge edge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);
             edge3.putProperty(AccumuloPropertyNames.PROP_2, 0);
@@ -195,10 +186,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             final Entry<Key, Value> entry = it.next();
             final Element readEdge = elementConverter.getFullElement(entry.getKey(), entry.getValue());
 
-            final Edge expectedEdge = new Edge(TestGroups.EDGE);
-            expectedEdge.setSource("1");
-            expectedEdge.setDestination("2");
-            expectedEdge.setDirected(true);
+            final Edge expectedEdge = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 9);
             expectedEdge.putProperty(AccumuloPropertyNames.COUNT, 15);
             expectedEdge.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -233,10 +221,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
         String visibilityString = "public";
         try {
             // Create edge
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("1");
-            edge.setDestination("2");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 8);
             edge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
@@ -262,10 +247,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             writer.addMutation(m1);
             writer.close();
 
-            final Edge expectedEdge = new Edge(TestGroups.EDGE);
-            expectedEdge.setSource("1");
-            expectedEdge.setDestination("2");
-            expectedEdge.setDirected(true);
+            final Edge expectedEdge = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 8);
             expectedEdge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
@@ -314,10 +296,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
         final String visibilityString = "public";
         try {
             // Create edge
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("1");
-            edge.setDestination("2");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 8);
             edge.putProperty(AccumuloPropertyNames.PROP_1, 0);
             edge.putProperty(AccumuloPropertyNames.PROP_2, 0);
@@ -326,20 +305,14 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
             //THIS EDGE WILL BE REDUCED MEANING ITS CQ (columnQualifier) will only occur once because its key is equal.
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("1");
-            edge2.setDestination("2");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
             edge2.putProperty(AccumuloPropertyNames.PROP_2, 0);
             edge2.putProperty(AccumuloPropertyNames.PROP_3, 0);
             edge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge2.putProperty(AccumuloPropertyNames.COUNT, 2);
 
-            final Edge edge3 = new Edge(TestGroups.EDGE);
-            edge3.setSource("1");
-            edge3.setDestination("2");
-            edge3.setDirected(true);
+            final Edge edge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);
             edge3.putProperty(AccumuloPropertyNames.PROP_2, 0);
             edge3.putProperty(AccumuloPropertyNames.PROP_3, 0);
@@ -381,10 +354,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             writer.addMutation(m5);
             writer.close();
 
-            Edge expectedEdge = new Edge(TestGroups.EDGE);
-            expectedEdge.setSource("1");
-            expectedEdge.setDestination("2");
-            expectedEdge.setDirected(true);
+            Edge expectedEdge = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 8);
             expectedEdge.putProperty(AccumuloPropertyNames.COUNT, 15);
             expectedEdge.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -437,10 +407,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
         final String visibilityString = "public";
         try {
             // Create edge
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("1");
-            edge.setDestination("2");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -449,10 +416,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("1");
-            edge2.setDestination("2");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 2);
             edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -461,10 +425,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge2.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-            final Edge edge3 = new Edge(TestGroups.EDGE);
-            edge3.setSource("1");
-            edge3.setDestination("2");
-            edge3.setDirected(true);
+            final Edge edge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 3);
             edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -475,10 +436,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
 
 
             //THIS EDGE WILL BE REDUCED MEANING ITS CQ (columnQualifier) will only occur once because its key is equal.
-            final Edge edge4 = new Edge(TestGroups.EDGE);
-            edge4.setSource("1");
-            edge4.setDestination("2");
-            edge4.setDirected(true);
+            final Edge edge4 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 2);
             edge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 4);
             edge4.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -487,10 +445,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge4.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge4.putProperty(AccumuloPropertyNames.COUNT, 2);
 
-            final Edge edge5 = new Edge(TestGroups.EDGE);
-            edge5.setSource("1");
-            edge5.setDestination("2");
-            edge5.setDirected(true);
+            final Edge edge5 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge5.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             edge5.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             edge5.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -499,10 +454,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge5.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge5.putProperty(AccumuloPropertyNames.COUNT, 10);
 
-            final Edge edge6 = new Edge(TestGroups.EDGE);
-            edge6.setSource("1");
-            edge6.setDestination("2");
-            edge6.setDirected(true);
+            final Edge edge6 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge6.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 4);
             edge6.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 6);
             edge6.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -555,10 +507,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             writer.addMutation(m6);
             writer.close();
 
-            Edge expectedEdge1 = new Edge(TestGroups.EDGE);
-            expectedEdge1.setSource("1");
-            expectedEdge1.setDestination("2");
-            expectedEdge1.setDirected(true);
+            Edge expectedEdge1 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             expectedEdge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 6);
             expectedEdge1.putProperty(AccumuloPropertyNames.COUNT, 3);
@@ -567,10 +516,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             expectedEdge1.putProperty(AccumuloPropertyNames.PROP_3, 0);
             expectedEdge1.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-            Edge expectedEdge2 = new Edge(TestGroups.EDGE);
-            expectedEdge2.setSource("1");
-            expectedEdge2.setDestination("2");
-            expectedEdge2.setDirected(true);
+            Edge expectedEdge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 2);
             expectedEdge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 4);
             expectedEdge2.putProperty(AccumuloPropertyNames.COUNT, 2);
@@ -579,10 +525,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             expectedEdge2.putProperty(AccumuloPropertyNames.PROP_3, 0);
             expectedEdge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-            Edge expectedEdge3 = new Edge(TestGroups.EDGE);
-            expectedEdge3.setSource("1");
-            expectedEdge3.setDestination("2");
-            expectedEdge3.setDirected(true);
+            Edge expectedEdge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             expectedEdge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             expectedEdge3.putProperty(AccumuloPropertyNames.COUNT, 10);
@@ -591,10 +534,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             expectedEdge3.putProperty(AccumuloPropertyNames.PROP_3, 0);
             expectedEdge3.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-            Edge expectedEdge4 = new Edge(TestGroups.EDGE);
-            expectedEdge4.setSource("1");
-            expectedEdge4.setDestination("2");
-            expectedEdge4.setDirected(true);
+            Edge expectedEdge4 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 4);
             expectedEdge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 6);
             expectedEdge4.putProperty(AccumuloPropertyNames.COUNT, 5);
@@ -668,10 +608,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
         final String visibilityString = "public";
         try {
             // Create edge
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("1");
-            edge.setDestination("2");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -680,10 +617,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("1");
-            edge2.setDestination("2");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -692,10 +626,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge2.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-            final Edge edge3 = new Edge(TestGroups.EDGE);
-            edge3.setSource("1");
-            edge3.setDestination("2");
-            edge3.setDirected(true);
+            final Edge edge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -706,10 +637,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
 
 
             //THIS EDGE WILL BE REDUCED MEANING ITS CQ (columnQualifier) will only occur once because its key is equal.
-            final Edge edge4 = new Edge(TestGroups.EDGE);
-            edge4.setSource("1");
-            edge4.setDestination("2");
-            edge4.setDirected(true);
+            final Edge edge4 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 4);
             edge4.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -718,10 +646,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge4.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge4.putProperty(AccumuloPropertyNames.COUNT, 2);
 
-            final Edge edge5 = new Edge(TestGroups.EDGE);
-            edge5.setSource("1");
-            edge5.setDestination("2");
-            edge5.setDirected(true);
+            final Edge edge5 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge5.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             edge5.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             edge5.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -730,10 +655,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge5.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge5.putProperty(AccumuloPropertyNames.COUNT, 10);
 
-            final Edge edge6 = new Edge(TestGroups.EDGE);
-            edge6.setSource("1");
-            edge6.setDestination("2");
-            edge6.setDirected(true);
+            final Edge edge6 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge6.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             edge6.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             edge6.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -786,10 +708,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             writer.addMutation(m6);
             writer.close();
 
-            Edge expectedEdge1 = new Edge(TestGroups.EDGE);
-            expectedEdge1.setSource("1");
-            expectedEdge1.setDestination("2");
-            expectedEdge1.setDirected(true);
+            Edge expectedEdge1 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             expectedEdge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             expectedEdge1.putProperty(AccumuloPropertyNames.COUNT, 3);
@@ -798,10 +717,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             expectedEdge1.putProperty(AccumuloPropertyNames.PROP_3, 0);
             expectedEdge1.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-            Edge expectedEdge2 = new Edge(TestGroups.EDGE);
-            expectedEdge2.setSource("1");
-            expectedEdge2.setDestination("2");
-            expectedEdge2.setDirected(true);
+            Edge expectedEdge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             expectedEdge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 4);
             expectedEdge2.putProperty(AccumuloPropertyNames.COUNT, 2);
@@ -810,10 +726,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             expectedEdge2.putProperty(AccumuloPropertyNames.PROP_3, 0);
             expectedEdge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
 
-            Edge expectedEdge3 = new Edge(TestGroups.EDGE);
-            expectedEdge3.setSource("1");
-            expectedEdge3.setDestination("2");
-            expectedEdge3.setDirected(true);
+            Edge expectedEdge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             expectedEdge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             expectedEdge3.putProperty(AccumuloPropertyNames.COUNT, 15);
@@ -880,10 +793,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
         final String visibilityString = "public";
         try {
             // Create edge
-            final Edge edge = new Edge(TestGroups.EDGE);
-            edge.setSource("1");
-            edge.setDestination("2");
-            edge.setDirected(true);
+            final Edge edge = new Edge(TestGroups.EDGE, "1", "2", true);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -892,10 +802,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-            final Edge edge2 = new Edge(TestGroups.EDGE);
-            edge2.setSource("1");
-            edge2.setDestination("2");
-            edge2.setDirected(true);
+            final Edge edge2 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge2.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge2.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -904,10 +811,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge2.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge2.putProperty(AccumuloPropertyNames.COUNT, 1);
 
-            final Edge edge3 = new Edge(TestGroups.EDGE);
-            edge3.setSource("1");
-            edge3.setDestination("2");
-            edge3.setDirected(true);
+            final Edge edge3 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge3.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 1);
             edge3.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -918,10 +822,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
 
 
             //THIS EDGE WILL BE REDUCED MEANING ITS CQ (columnQualifier) will only occur once because its key is equal.
-            final Edge edge4 = new Edge(TestGroups.EDGE);
-            edge4.setSource("1");
-            edge4.setDestination("2");
-            edge4.setDirected(true);
+            final Edge edge4 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
             edge4.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 4);
             edge4.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -930,10 +831,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge4.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge4.putProperty(AccumuloPropertyNames.COUNT, 2);
 
-            final Edge edge5 = new Edge(TestGroups.EDGE);
-            edge5.setSource("1");
-            edge5.setDestination("2");
-            edge5.setDirected(true);
+            final Edge edge5 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge5.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             edge5.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             edge5.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -942,10 +840,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             edge5.putProperty(AccumuloPropertyNames.PROP_4, 0);
             edge5.putProperty(AccumuloPropertyNames.COUNT, 10);
 
-            final Edge edge6 = new Edge(TestGroups.EDGE);
-            edge6.setSource("1");
-            edge6.setDestination("2");
-            edge6.setDirected(true);
+            final Edge edge6 = new Edge(TestGroups.EDGE, "1", "2", true);
             edge6.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 3);
             edge6.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 5);
             edge6.putProperty(AccumuloPropertyNames.PROP_1, 0);
@@ -998,10 +893,7 @@ public class CoreKeyGroupByAggregatorIteratorTest {
             writer.addMutation(m6);
             writer.close();
 
-            Edge expectedEdge1 = new Edge(TestGroups.EDGE);
-            expectedEdge1.setSource("1");
-            expectedEdge1.setDestination("2");
-            expectedEdge1.setDirected(true);
+            Edge expectedEdge1 = new Edge(TestGroups.EDGE, "1", "2", true);
             expectedEdge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 5);
             expectedEdge1.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER_2, 10);
             expectedEdge1.putProperty(AccumuloPropertyNames.COUNT, 20);

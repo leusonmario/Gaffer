@@ -451,10 +451,7 @@ public class AccumuloIDWithinSetRetrieverTest {
             entity.putProperty(AccumuloPropertyNames.COUNT, 10000);
             data.add(entity);
             for (int i = 1; i < 100; i++) {
-                final Edge edge = new Edge(TestGroups.EDGE);
-                edge.setSource("A0");
-                edge.setDestination("A" + i);
-                edge.setDirected(true);
+                final Edge edge = new Edge(TestGroups.EDGE, "A0", "A" + i, true);
                 edge.putProperty(AccumuloPropertyNames.COLUMN_QUALIFIER, 1);
                 edge.putProperty(AccumuloPropertyNames.COUNT, i);
                 data.add(edge);

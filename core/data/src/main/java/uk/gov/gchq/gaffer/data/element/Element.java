@@ -24,8 +24,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import java.io.Serializable;
 import java.util.Map.Entry;
+
+import static org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 /**
  * <code>Elements</code> are the fundamental building blocks of the Graph.
@@ -59,7 +62,7 @@ public abstract class Element implements Serializable {
     }
 
     public void putProperty(final String name, final Object value) {
-            properties.put(name, value);
+        properties.put(name, value);
     }
 
     public void copyProperties(final Properties properties) {
@@ -148,8 +151,10 @@ public abstract class Element implements Serializable {
 
     @Override
     public String toString() {
-        return ", group='" + group
-                + "\', properties=" + properties;
+        return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .append("properties", properties)
+                .append("group", group)
+                .toString();
     }
 
     @JsonGetter("class")

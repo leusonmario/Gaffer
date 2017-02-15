@@ -20,8 +20,11 @@ package uk.gov.gchq.gaffer.data.element;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 /**
  * An <code>Entity</code> in an {@link uk.gov.gchq.gaffer.data.element.Element} containing a single vertex.
@@ -112,7 +115,10 @@ public class Entity extends Element {
 
     @Override
     public String toString() {
-        return "Entity{vertex=" + vertex + super.toString() + "} ";
+        return new ToStringBuilder(this, SHORT_PREFIX_STYLE)
+                .append("vertex", vertex)
+                .appendSuper(super.toString())
+                .toString();
     }
 
     public static class Builder {
