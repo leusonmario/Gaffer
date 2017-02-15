@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.gaffer.serialisation;
+package uk.gov.gchq.gaffer.named.operation.cache;
 
-/**
- * Abstract implementation of the {@link Serialisation} interface, providing default
- * implementations of the {@link Serialisation#serialiseNull()} method.
- */
-public abstract class AbstractSerialisation<T> implements Serialisation<T> {
 
-    private static final byte[] EMPTY_BYTES = new byte[0];
+import java.io.IOException;
 
-    @Override
-    public byte[] serialiseNull() {
-        return EMPTY_BYTES;
+public class CacheOperationFailedException extends IOException {
+    private static final long serialVersionUID = 7602673761576682002L;
+
+    public CacheOperationFailedException() {
+        super();
     }
 
+    public CacheOperationFailedException(final Throwable e) {
+        super(e);
+    }
+
+    public CacheOperationFailedException(final String message, final Throwable e) {
+        super(message, e);
+    }
+
+    public CacheOperationFailedException(final String message) {
+        super(message);
+    }
 }
