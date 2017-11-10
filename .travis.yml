@@ -4,7 +4,8 @@ uk.gov.gchq.gaffer.cache:
   - $HOME/.m2
 jdk:
   - oraclejdk8
-sudo: false
+
+sudo: required
 addons:
   apt:
     packages:
@@ -19,6 +20,24 @@ env:
 install: mvn -q install -P quick,travis -B -V
 script: mvn -q verify -P travis,build-extras -B
 after_success:
+
+  - mvn clean cobertura:cobertura -Dtest=AddElementsFromKafkaHandlerIT#shouldAddElements -DfailIfNoTests=false
   - ./cd/before_deploy.sh
   - ./cd/deploy.sh
   - bash <(curl -s https://codecov.io/bash)
+
+
+before_deploy:
+- tar -zcvf coverage-result.tar.gz /home/travis/build/leusonmario/Gaffer/target/site/cobertura
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "Ylk4+FDaojGrCocpJ5URfRBpGuBC6VWl1EcssVr2Cc+5uN4cnfRGui3Exc3wsbx9KfqT7rRF14ymC6zft+UOD3RpQn5hlhsMgQUMzE2bfwy8xHCMVR39ZimukhLECk53J/NGRUbpGOm56/R0LKDvapzh5bOfTCE0XQ4VTVEg8Dw32q87tkynsOaFohST2NbLfJgLYjGzAcAtpXMQFo7DbtqClzm9jNhiPX7RJuZDTiQJycfNO8ZUs0NiBU9KcmcdmwFY7kj4csDKfV6F+jCX1uJdB5uVhgJM4KWorpvxWz+rkeF0LpA2M16hjD50oLn7r4rkgZ2N0i19+t/EE+WmdZvdq2VQqFZZYfUHk2+SJK75PUmFOD268lItzZf4daj2DApn80MjhcPAyAwseuhNi5RDsM2JO5SxP+4k8kmPUXnx30t5qSt7afhODOaxrZ8aHlxZ/X0s0cSBlaaKwD2I5Wxk/39OxxJmY7luWBXZjCZXLZfr1uI95fHY4CesuZ4+3rKWy215qj0cYRSAiZbyG/z9KUYAI7CWR0y5B0OsLJnD8EW32ouIZ8lzgZ5k3CRXaHRv/gX9x/u0resaV2VZyewtk9eea9CcylfdfDNPe5VkGSKpq9NT9lAnnWs8AV1AnAVdzEacLU7YrN30fXeBGEd0BKHpf4zqhvxqa1U5rrQ="
+
+  file: coverage-result.tar.gz
+  file_glob: true
+  overwrite: true
+  skip_cleanup: true
+  on:
+    tags: true
